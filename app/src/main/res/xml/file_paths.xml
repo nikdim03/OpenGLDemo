@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <files-path
+        name="files-path"
+        path="." />
+    <cache-path
+        name="cache-path"
+        path="." />
+    <external-path
+        name="external_storage_root"
+        path="." />
+    <external-files-path
+        name="external_file_path"
+        path="." />
+    <external-cache-path
+        name="external_cache_path"
+        path="." />
+    <!--Configure root-path. This way, the directory of the SD card and some application clones can be read. Otherwise, the pictures saved by WeChat clone will cause java.lang.IllegalArgumentException: Failed to find configured root that contains /storage/emulated/999/tencent/MicroMsg/WeiXin/export1544062754693.jpg-->
+    <root-path
+        name="root-path"
+        path="" />
+</paths>
