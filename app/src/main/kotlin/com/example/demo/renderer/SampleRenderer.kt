@@ -19,7 +19,7 @@ import javax.microedition.khronos.opengles.GL10
 class SampleRenderer(context: Context) : Renderer {
     private var textureSurfaceListener: TextureSurfaceListener? = null
 
-    private var backgroundComponent = SurfaceComponent()
+    // private var backgroundComponent = SurfaceComponent()
     private var frontComponent = SurfaceComponent()
 
     private val rectShape = DefaultShape(context)
@@ -47,11 +47,12 @@ class SampleRenderer(context: Context) : Renderer {
         perspectiveInvertShape.init()
         curvedShape.init()
         Matrix.setIdentityM(mTextureMatrix, 0);
-        backgroundComponent.createSurface()
+        // backgroundComponent.createSurface()
         frontComponent.createSurface()
 
         textureSurfaceListener?.onSurfaceCreated(
-            Surface(backgroundComponent.getSurfaceTexture()),
+            Surface(frontComponent.getSurfaceTexture()),
+            // Surface(backgroundComponent.getSurfaceTexture()),
             Surface(frontComponent.getSurfaceTexture())
         )
     }
@@ -85,30 +86,29 @@ class SampleRenderer(context: Context) : Renderer {
         GLES30.glBindFramebuffer(GLES30.GL_FRAMEBUFFER, 0)
         GLES30.glEnable(GLES30.GL_BLEND)
         GLES30.glViewport(0, 0, surfaceWidth, surfaceHeight)
-        GLES30.glClearColor(0f, 0.0f, 1f, 1.0f)
+        GLES30.glClearColor(0f, 0.0f, 0f, 0.0f)
         GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT or GLES30.GL_COLOR_BUFFER_BIT)
 
-        backgroundComponent.updateTexImage()
         frontComponent.updateTexImage()
 
         onDrawOES()
 
         GLES30.glBindFramebuffer(GLES30.GL_FRAMEBUFFER, 0)
-        GLES30.glClearColor(0f, 0.0f, 1f, 1.0f)
+        GLES30.glClearColor(0f, 0.0f, 0f, 0.0f)
         GLES30.glViewport(0, 0, surfaceWidth, surfaceHeight)
         curvedShape.drawFrame(curvedTextureId, textureMatrix = mTextureMatrix)
     }
 
     private fun onDrawOES() {
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, curvedBufferId)
-        GLES20.glClearColor(0.0f, 0.0f, 1f, 1.0f)
+        GLES20.glClearColor(0.0f, 0.0f, 0f, 0.0f)
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT or GLES20.GL_COLOR_BUFFER_BIT)
         GLES20.glViewport(0, 0, surfaceWidth, surfaceHeight)
         GLES20.glEnable(GLES20.GL_BLEND)
         GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA)
 
         GLES30.glViewport(0, 0, surfaceWidth, surfaceHeight)
-        rectShape.drawFrame(backgroundComponent.getTextureId(), textureMatrix = backgroundComponent.getTextureMatrix())
+        // rectShape.drawFrame(backgroundComponent.getTextureId(), textureMatrix = backgroundComponent.getTextureMatrix())
 
         var x = widthSpace
         var y = heightSpace
